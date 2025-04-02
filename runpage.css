@@ -1,0 +1,102 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f9;
+}
+
+h1, h2 {
+    text-align: center;
+    color: #333;
+}
+
+button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #00509e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #003f7e;
+}
+
+#tables-container {
+    display: grid;
+    grid-template-columns: 1fr; /* ปรับให้แต่ละส่วนเป็นคอลัมน์ */
+    gap: 30px;
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+table th {
+    background-color: #00509e;
+    color: white;
+    font-weight: bold;
+}
+
+table th, table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+table tr:hover {
+    background-color: #f4f4f9;
+}
+
+button {
+    display: inline-block;
+    margin: 20px auto;
+    padding: 10px 20px; /* ระยะห่างภายใน */
+    font-size: 16px; /* ขนาดตัวอักษร */
+    font-family: 'Poppins', sans-serif; /* ฟ้อนต์ */
+    color: #ffffff; /* สีข้อความ */
+    background-color: #00509e; /* สีพื้นหลัง */
+    border: none; /* ไม่มีเส้นขอบ */
+    border-radius: 5px; /* มุมโค้งมน */
+    cursor: pointer; /* เปลี่ยนเป็นไอคอนมือเมื่อชี้ */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* เพิ่มเงา */
+    transition: all 0.3s ease-in-out; /* เอฟเฟ็กต์การเปลี่ยน */
+}
+
+button:hover {
+    background-color: #003f7e; /* เปลี่ยนสีเมื่อชี้เมาส์ */
+    transform: scale(1.05); /* เพิ่มขนาดเล็กน้อย */
+}
+
+button:active {
+    background-color: #002952; /* สีเข้มเมื่อคลิก */
+    transform: scale(0.95); /* ขนาดลดลงเล็กน้อย */
+}
+
+
+@media (max-width: 768px) {
+    #tables-container {
+        grid-template-columns: 1fr; /* ทุกตารางเป็น 1 คอลัมน์บนจอเล็ก */
+    }
+
+    table th, table td {
+        padding: 8px;
+    }
+
+    h1, h2 {
+        font-size: 18px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}

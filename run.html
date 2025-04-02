@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Tables Display</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="runpage.css">
+
+</head>
+<body>
+
+    <h1>Database Tables Display</h1>
+
+    <button onclick="loadData()">Load Database Tables</button>
+
+    <div id="tables-container" class="hidden">
+        
+        <h2>Activities</h2>
+        <table id="activities-table">
+            <thead>
+                <tr>
+                    <th>Activity ID</th>
+                    <th>User ID</th>
+                    <th>Action</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <h2>Borrow Records</h2>
+        <table id="borrow-records-table">
+            <thead>
+                <tr>
+                    <th>Borrow ID</th>
+                    <th>User ID</th>
+                    <th>Equipment ID</th>
+                    <th>Borrowed Date</th>
+                    <th>Returned Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <h2>Dashboards</h2>
+        <table id="dashboards-table">
+            <thead>
+                <tr>
+                    <th>Dashboard ID</th>
+                    <th>User ID</th>
+                    <th>Last Login</th>
+                    <th>Notifications</th>
+                    <th>Recent Activity</th>
+                    <th>Widgets</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <h2>Equipment</h2>
+        <table id="equipment-table">
+            <thead>
+                <tr>
+                    <th>Equipment ID</th>
+                    <th>Equipment Name</th>
+                    <th>Category</th>
+                    <th>Brand</th>
+                    <th>Quantity</th>
+                    <th>Purchase Date</th>
+                    <th>Location</th>
+                    <th>Condition</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <h2>Maintenance</h2>
+        <table id="maintenance-table">
+            <thead>
+                <tr>
+                    <th>Maintenance ID</th>
+                    <th>Equipment ID</th>
+                    <th>Date</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <h2>Reports</h2>
+        <table id="reports-table">
+            <thead>
+                <tr>
+                    <th>Report ID</th>
+                    <th>User ID</th>
+                    <th>Report Name</th>
+                    <th>Report Type</th>
+                    <th>Create Date</th>
+                    <th>Modified Date</th>  
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+    </div>
+
+    <script>
+        const BASE_URL = 'http://localhost/getTablesData.php';
+
+        async function loadData() {
+            document.querySelector('button').style.display = 'none';
+            const container = document.getElementById('tables-container');
+            container.classList.remove('hidden');
+
+            try {
+                const response = await axios.get(BASE_URL);
+                const data = response.data;
+
+                populateTable('activities-table', data.activities, ['activity_id', 'user_id', 'action', 'timestamp']);
+                populateTable('borrow-records-table', data.borrowRecords, ['borrow_id', 'user_id', 'equipment_id', 'borrowed_date', 'returned_date', 'status']);
+                populateTable('dashboards-table', data.dashboards, ['dashboard_id', 'user_id', 'last_login', 'notifications', 'recent_activity', 'widgets']);
+                populateTable('equipment-table', data.equipment, ['equipment_id', 'equipment_name', 'category', 'brand', 'quantity', 'purchase_date', 'location', 'condition', 'description']);
+                populateTable('maintenance-table', data.maintenance, ['maintenance_id', 'equipment_id', 'date', 'details']);
+                populateTable('reports-table', data.reports, ['report_id', 'user_id', 'report_name', 'report_type', 'create_date', 'modified_date', 'data']);
+
+            } catch (error) {
+                console.error('Error loading data', error);
+            }
+        }
+
+        function populateTable(tableId, data, columns) {
+            const tableBody = document.getElementById(tableId).getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ""; 
+            
+            data.forEach(item => {
+                let row = tableBody.insertRow();
+                columns.forEach(col => {
+                    let cell = row.insertCell();
+                    cell.textContent = item[col] !== undefined ? item[col] : '';
+                });
+            });
+        }
+    </script>
+
+    <script src="run.js"></script>
+
+</body>
+</html>
